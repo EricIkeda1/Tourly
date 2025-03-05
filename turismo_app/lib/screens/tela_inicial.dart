@@ -21,7 +21,6 @@ class _TelaInicialState extends State<TelaInicial> {
     }
 
     String sugestao = 'Passeios sugeridos para $localizacao por $tempoEstada dias:';
-
     if (_perfilViagem == 'Aventura') {
       sugestao += '\n- Trilhas e atividades ao ar livre.';
     } else if (_perfilViagem == 'Cultural') {
@@ -43,33 +42,65 @@ class _TelaInicialState extends State<TelaInicial> {
     return Scaffold(
       appBar: AppBar(
         title: Text('TurismoApp'),
+        backgroundColor: Colors.teal,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            TextField(
-              controller: _localizacaoController,
-              decoration: InputDecoration(labelText: 'Localização'),
-            ),
-            TextField(
-              controller: _tempoEstadaController,
-              decoration: InputDecoration(labelText: 'Tempo de Estada (dias)'),
-              keyboardType: TextInputType.number,
-            ),
-            DropdownPerfil(
-              perfilViagem: _perfilViagem,
-              onChanged: (newValue) {
-                setState(() {
-                  _perfilViagem = newValue!;
-                });
-              },
+            Card(
+              elevation: 4,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    TextField(
+                      controller: _localizacaoController,
+                      decoration: InputDecoration(
+                        labelText: 'Localização',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    TextField(
+                      controller: _tempoEstadaController,
+                      decoration: InputDecoration(
+                        labelText: 'Tempo de Estada (dias)',
+                        border: OutlineInputBorder(),
+                      ),
+                      keyboardType: TextInputType.number,
+                    ),
+                    SizedBox(height: 10),
+                    DropdownPerfil(
+                      perfilViagem: _perfilViagem,
+                      onChanged: (newValue) {
+                        setState(() {
+                          _perfilViagem = newValue!;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ),
             ),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: _mostrarSugestoes,
-              child: Text('Mostrar Sugestões'),
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.symmetric(vertical: 14),
+                backgroundColor: Colors.teal,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              child: Text(
+                'Mostrar Sugestões',
+                style: TextStyle(fontSize: 18, color: Colors.white),
+              ),
             ),
           ],
         ),
