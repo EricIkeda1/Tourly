@@ -41,68 +41,84 @@ class _TelaInicialState extends State<TelaInicial> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('TurismoApp'),
+        title: Text('TurismoApp', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22)),
         backgroundColor: Colors.teal,
+        centerTitle: true,
+        elevation: 4,
+        shadowColor: Colors.black45,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Card(
-              elevation: 4,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  children: [
-                    TextField(
-                      controller: _localizacaoController,
-                      decoration: InputDecoration(
-                        labelText: 'Localização',
-                        border: OutlineInputBorder(),
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    TextField(
-                      controller: _tempoEstadaController,
-                      decoration: InputDecoration(
-                        labelText: 'Tempo de Estada (dias)',
-                        border: OutlineInputBorder(),
-                      ),
-                      keyboardType: TextInputType.number,
-                    ),
-                    SizedBox(height: 10),
-                    DropdownPerfil(
-                      perfilViagem: _perfilViagem,
-                      onChanged: (newValue) {
-                        setState(() {
-                          _perfilViagem = newValue!;
-                        });
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _mostrarSugestoes,
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(vertical: 14),
-                backgroundColor: Colors.teal,
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.teal.shade100, Colors.teal.shade400],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Card(
+                elevation: 6,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    children: [
+                      TextField(
+                        controller: _localizacaoController,
+                        decoration: InputDecoration(
+                          labelText: 'Localização',
+                          border: OutlineInputBorder(),
+                          prefixIcon: Icon(Icons.location_on, color: Colors.teal),
+                        ),
+                      ),
+                      SizedBox(height: 12),
+                      TextField(
+                        controller: _tempoEstadaController,
+                        decoration: InputDecoration(
+                          labelText: 'Tempo de Estada (dias)',
+                          border: OutlineInputBorder(),
+                          prefixIcon: Icon(Icons.calendar_today, color: Colors.teal),
+                        ),
+                        keyboardType: TextInputType.number,
+                      ),
+                      SizedBox(height: 12),
+                      DropdownPerfil(
+                        perfilViagem: _perfilViagem,
+                        onChanged: (newValue) {
+                          setState(() {
+                            _perfilViagem = newValue!;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
-              child: Text(
-                'Mostrar Sugestões',
-                style: TextStyle(fontSize: 18, color: Colors.white),
+              SizedBox(height: 25),
+              ElevatedButton(
+                onPressed: _mostrarSugestoes,
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(vertical: 16),
+                  backgroundColor: Colors.teal.shade700,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  elevation: 6,
+                  shadowColor: Colors.black45,
+                ),
+                child: Text(
+                  'Mostrar Sugestões',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
