@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../widgets/dropdown_perfil.dart';
 import 'tela_sugestoes.dart';
+import 'tela_inicial.dart';
 
 class TelaInicial extends StatefulWidget {
   @override

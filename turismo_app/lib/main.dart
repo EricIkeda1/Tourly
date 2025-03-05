@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'screens/tela_inicial.dart';
+import 'screens/tela_home.dart';  
 
 void main() {
   runApp(TurismoApp());
@@ -12,9 +12,9 @@ class TurismoApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'TurismoApp',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.teal,
       ),
-      home: TelaInicial(),
+      home: HomeScreen(), 
     );
   }
 }
