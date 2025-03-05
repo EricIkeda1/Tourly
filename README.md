@@ -1,1 +1,1 @@
-# tourism_recommendation_app
+# Tourly
