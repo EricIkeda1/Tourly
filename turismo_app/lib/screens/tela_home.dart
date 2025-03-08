@@ -9,51 +9,82 @@ class HomeScreen extends StatelessWidget {
         children: [
           const BackgroundWidget(),
           SafeArea(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'TurismoApp',
-                    style: TextStyle(
-                      color: Colors.white, 
-                      fontSize: 36,
-                      fontWeight: FontWeight.bold,
-                      shadows: [Shadow(color: Colors.black, blurRadius: 15)],
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    'Descubra destinos incríveis!',
-                    style: TextStyle(
-                      color: Colors.white.withOpacity(0.9),
-                      fontSize: 20,
-                      fontStyle: FontStyle.italic,
-                      shadows: [Shadow(color: Colors.black, blurRadius: 10)],
-                    ),
-                  ),
-                  const SizedBox(height: 40),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => TelaInicial()),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                      backgroundColor: Colors.teal,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
+            child: Column(
+              children: [
+                Spacer(), 
+                Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'TurismoApp',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 36,
+                          fontWeight: FontWeight.bold,
+                          shadows: [Shadow(color: Colors.black, blurRadius: 15)],
+                        ),
                       ),
-                    ),
-                    child: const Text(
-                      'Explorar',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
+                      const SizedBox(height: 10),
+                      Text(
+                        'Descubra destinos incríveis!',
+                        style: TextStyle(
+                          color: Colors.white.withOpacity(0.9),
+                          fontSize: 20,
+                          fontStyle: FontStyle.italic,
+                          shadows: [Shadow(color: Colors.black, blurRadius: 10)],
+                        ),
+                      ),
+                      const SizedBox(height: 40),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => TelaInicial()),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                          backgroundColor: Colors.teal,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                        ),
+                        child: const Text(
+                          'Explorar',
+                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+                Spacer(),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 20),
+                  child: Column(
+                    children: [
+                      Text(
+                        'Desenvolvido por Eric Yuji Ikeda',
+                        style: TextStyle(
+                          color: Colors.tealAccent,
+                          fontSize: 14,
+                          fontStyle: FontStyle.italic,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 5),
+                      Text(
+                        '©${DateTime.now().year} Eric Yuji Ikeda. Todos os direitos reservados.',
+                        style: TextStyle(
+                          color: Colors.tealAccent,
+                          fontSize: 14,
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
         ],
