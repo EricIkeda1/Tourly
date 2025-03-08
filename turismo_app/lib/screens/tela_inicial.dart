@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../widgets/dropdown_perfil.dart';
 import 'tela_sugestoes.dart';
-import 'tela_inicial.dart';
+import 'package:turismo_app/models/sugestao.dart';
+import 'package:turismo_app/widgets/dropdown_perfil.dart';
 
 class TelaInicial extends StatefulWidget {
   @override
@@ -12,8 +12,9 @@ class _TelaInicialState extends State<TelaInicial> {
   final _localizacaoController = TextEditingController();
   final _tempoEstadaController = TextEditingController();
   String _perfilViagem = 'Aventura';
+  bool _isLoading = false;
 
-  void _mostrarSugestoes() {
+  void _mostrarSugestoes() async {
     final localizacao = _localizacaoController.text;
     final tempoEstada = _tempoEstadaController.text;
 
@@ -21,21 +22,32 @@ class _TelaInicialState extends State<TelaInicial> {
       return;
     }
 
-    String sugestao = 'Passeios sugeridos para $localizacao por $tempoEstada dias:';
-    if (_perfilViagem == 'Aventura') {
-      sugestao += '\n- Trilhas e atividades ao ar livre.';
-    } else if (_perfilViagem == 'Cultural') {
-      sugestao += '\n- Museus e pontos históricos.';
-    } else {
-      sugestao += '\n- Passeios e atividades relaxantes.';
-    }
+    setState(() {
+      _isLoading = true;
+    });
 
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => TelaSugestoes(sugestao: sugestao),
-      ),
-    );
+    try {
+      Sugestao sugestao = await Sugestao.obterSugestao(
+        localizacao,
+        tempoEstada,
+        _perfilViagem,
+      );
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => TelaSugestoes(sugestao: sugestao.descricao),
+        ),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Erro ao obter sugestões!')),
+      );
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
   @override
@@ -103,7 +115,7 @@ class _TelaInicialState extends State<TelaInicial> {
               ),
               SizedBox(height: 25),
               ElevatedButton(
-                onPressed: _mostrarSugestoes,
+                onPressed: _isLoading ? null : _mostrarSugestoes,
                 style: ElevatedButton.styleFrom(
                   padding: EdgeInsets.symmetric(vertical: 16),
                   backgroundColor: Colors.teal.shade700,
@@ -113,10 +125,12 @@ class _TelaInicialState extends State<TelaInicial> {
                   elevation: 6,
                   shadowColor: Colors.black45,
                 ),
-                child: Text(
-                  'Mostrar Sugestões',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
-                ),
+                child: _isLoading
+                    ? CircularProgressIndicator(color: Colors.white)
+                    : Text(
+                        'Mostrar Sugestões',
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+                      ),
               ),
             ],
           ),
